@@ -77,7 +77,7 @@ fun ContentLoginView(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Bienvenido, Socio.", fontSize = 28.sp, fontWeight = FontWeight.Bold)
+        Text(text = "Bienvenido, socio.", fontSize = 28.sp, fontWeight = FontWeight.Bold)
 
         Spacer(modifier = Modifier.height(4.dp))
 
