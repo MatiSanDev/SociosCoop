@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.BottomAppBar
@@ -47,6 +48,9 @@ fun MyTopAppBar(navController: NavController) {
         ),
         actions = {
             Row {
+                MainIconButton(icon = Icons.Default.Search, "Buscar") {
+                    navController.navigate("Search")
+                }
                 MainIconButton(icon = Icons.Default.Settings, "Configuracion") {
                     navController.navigate("Configuration")
                 }
@@ -78,6 +82,7 @@ fun getCurrentRoute(navController: NavController): String {
         "Profile" -> "Perfil"
         "Configuration" -> "Ajustes"
         "Services" -> "Servicios"
+        "Search" -> "Buscar"
         else -> ""
     }
 }
@@ -128,4 +133,22 @@ fun MainIconButton(icon: ImageVector, nombre: String, onClick: () -> Unit) {
             )
         }
     }
+}
+@Composable
+fun MyText(
+    text: String,
+    style: androidx.compose.ui.text.TextStyle,
+    lines: Int = Int.MAX_VALUE
+) {
+    Text(text = text, style = style, maxLines = lines)
+}
+
+@Composable
+fun MySubText(
+    text: String,
+    color: Color,
+    style: androidx.compose.ui.text.TextStyle,
+    lines: Int = Int.MAX_VALUE
+) {
+    Text(text = text, color = color, style = style, maxLines = lines)
 }

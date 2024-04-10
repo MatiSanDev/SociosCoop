@@ -29,6 +29,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.socios.Components.MyBottomAppBar
+import com.example.socios.Components.MySubText
+import com.example.socios.Components.MyText
 import com.example.socios.Components.MyTopAppBar
 import com.example.socios.Components.TitleView
 import com.example.socios.R
@@ -122,21 +124,4 @@ fun MyTexts(message: MyMessage, expanded: Boolean) {
 }
 
 
-@Composable
-fun MyText(
-    text: String,
-    style: androidx.compose.ui.text.TextStyle,
-    lines: Int = Int.MAX_VALUE
-) {
-    Text(text = text, style = style, maxLines = lines)
-}
 
-@Composable
-fun MySubText(
-    text: String,
-    color: Color,
-    style: androidx.compose.ui.text.TextStyle,
-    lines: Int = Int.MAX_VALUE
-) {
-    Text(text = text, color = color, style = style, maxLines = lines)
-}

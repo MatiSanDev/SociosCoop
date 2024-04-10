@@ -1,18 +1,26 @@
 package com.example.socios.Components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.wear.compose.material.LocalContentAlpha
 import com.example.socios.Views.Resources.MyMessage
 
 
@@ -21,13 +29,61 @@ fun TitleView(name: String) {
     Text(text = name, fontSize = 40.sp, fontWeight = FontWeight.Bold)
 }
 @Composable
-fun TextBoxTitle(name: String) {
-    Text(text = name, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.SansSerif)
+fun CustomTextBox(
+    text: String,
+    fontSize: TextUnit = 20.sp,
+    fontWeight: FontWeight = FontWeight.Bold,
+    fontFamily: FontFamily = FontFamily.Default,
+    textAlign: TextAlign = TextAlign.Center,
+    modifier: Modifier = Modifier
+) {
+    val textColor = LocalContentColor.current
+
+    Text(
+        text = text,
+        fontSize = fontSize,
+        fontWeight = fontWeight,
+        fontFamily = fontFamily,
+        color = textColor,
+        textAlign = textAlign,
+        modifier = modifier
+    )
 }
+
+
 @Composable
 fun TextBox(name: String) {
     Text(text = name, fontSize = 15.sp, fontWeight = FontWeight.Light, fontFamily = FontFamily.SansSerif)
 }
+@Composable
+fun CustomIcon(
+    icon: ImageVector,
+    contentDescription: String?,
+    tint: Color? = Color.Unspecified,
+    modifier: Modifier = Modifier
+) {
+    Icon(
+        imageVector = icon,
+        contentDescription = contentDescription,
+        tint = tint ?: LocalContentColor.current.copy(alpha = LocalContentAlpha.current),
+        modifier = modifier
+    )
+}
+@Composable
+fun CustomImage(
+    painter: Painter,
+    contentDescription: String?,
+    contentScale: ContentScale = ContentScale.Fit,
+    modifier: Modifier = Modifier
+) {
+    Image(
+        painter = painter,
+        contentDescription = contentDescription,
+        contentScale = contentScale,
+        modifier = modifier
+    )
+}
+
 
 @Composable
 fun Space() {
@@ -48,24 +104,11 @@ fun MainButton(name: String, backColor: Color, color: Color, onClick: () -> Unit
     }
 }
 @Composable
-fun Boton(name: String, backColor: Color, color: Color, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            contentColor = color,
-            containerColor = backColor
-        )
-    ) {
-        Text(text = name)
-    }
-}
-@Composable
 fun TitleService(name: String){
     Text(
         text = name,
         fontWeight = FontWeight.ExtraBold,
-        fontFamily = FontFamily.SansSerif,
-        textAlign = TextAlign.Center
+        fontFamily = FontFamily.SansSerif
     )
 }
 
