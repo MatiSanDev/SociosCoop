@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,6 +31,7 @@ import androidx.navigation.NavController
 import com.example.socios.Components.MyBottomAppBar
 import com.example.socios.Components.MyTopAppBar
 import com.example.socios.Components.Space
+import com.example.socios.Components.TitleService
 import com.example.socios.R
 
 
@@ -59,6 +59,7 @@ fun ContentHomeView(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
+        Text(text = "Tus productos contratados:")
         Row {
             Column(
                 modifier = Modifier
@@ -72,11 +73,7 @@ fun ContentHomeView(navController: NavController) {
                 Row(
                     modifier = Modifier.padding(10.dp)
                 ) {
-                    Text(
-                        text = "ESTADO CUENTA DE AHORRO",
-                        fontWeight = FontWeight.ExtraBold,
-                        fontFamily = FontFamily.SansSerif
-                    )
+                    TitleService("AHORROS")
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 Row(
@@ -136,11 +133,7 @@ fun ContentHomeView(navController: NavController) {
                 Row(
                     modifier = Modifier.padding(10.dp)
                 ) {
-                    Text(
-                        text = "ESTADO CUENTA DE DEPOSITOS",
-                        fontWeight = FontWeight.ExtraBold,
-                        fontFamily = FontFamily.SansSerif
-                    )
+                    TitleService("INVERSIONES")
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 Row(
@@ -201,11 +194,7 @@ fun ContentHomeView(navController: NavController) {
                     modifier = Modifier
                         .padding(10.dp)
                 ) {
-                    Text(
-                        text = "ESTADO CUENTA DE CREDITOS",
-                        fontWeight = FontWeight.ExtraBold,
-                        fontFamily = FontFamily.SansSerif
-                    )
+                    TitleService("CRÉDITOS")
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 Row(
@@ -222,9 +211,7 @@ fun ContentHomeView(navController: NavController) {
                     Image(
                         painter = painterResource(id = R.drawable.creditos),
                         contentDescription = "Creditos",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(60.dp)
+                        modifier = Modifier.size(60.dp)
                     )
                     Column(
                         modifier = Modifier

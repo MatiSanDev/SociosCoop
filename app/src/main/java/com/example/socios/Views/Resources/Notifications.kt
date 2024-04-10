@@ -34,59 +34,6 @@ import com.example.socios.Components.TitleView
 import com.example.socios.R
 
 private val messages: List<MyMessage> = listOf(
-    MyMessage(
-        "Hola 1",
-        "lLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specim"
-    ),
-    MyMessage(
-        "Hola 2",
-        "Proin molestie erat id ipsum ullamcorper egestas. Suspendisse dolor risus, posuere sed enim id, aliquet congue urna. Nulla sed laoreet est, ut maximus nisl. Morbi finibus aliquet dui ut eleifend. In et ex gravida, blandit velit lacinia, tincidunt nunc. In facilisis lacus ac justo fermentum, non sagittis neque convallis"
-    ),
-    MyMessage(
-        "Hola 3",
-        "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
-    ),
-    MyMessage(
-        "Hola 4",
-        "eProin molestie erat id ipsum ullamcorper egestas. Suspendisse dolor risus, posuere sed enim id, aliquet congue urna. Nulla sed laoreet est, ut maximus nisl. Morbi finibus aliquet dui ut eleifend. In et ex gravida, blandit velit lacinia, tincidunt nunc. In facilisis lacus ac justo fermentum, non sagittis neque convallis"
-    ),
-    MyMessage(
-        "Hola 5",
-        "Proin molestie erat id ipsum ullamcorper egestas. Suspendisse dolor risus, posuere sed enim id, aliquet congue urna. Nulla sed laoreet est, ut maximus nisl. Morbi finibus aliquet dui ut eleifend. In et ex gravida, blandit velit lacinia, tincidunt nunc. In facilisis lacus ac justo fermentum, non sagittis neque convallis"
-    ),
-    MyMessage(
-        "Hola 6",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specim"
-    ),
-    MyMessage(
-        "Hola 7",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ligula, imperdiet eu turpis sit amet, interdum fermentum sapien. Etiam sodales est non sem hendrerit, vitae laoreet erat tincidunt. Nulla id nisi eget nulla sodales rutrum a ut lacus. Etiam magna massa, sollicitudin et odio a, sodales blandit justo. Vivamus blandit vehicula faucibus. Nullam congue risus at ligula venenatis, vel pharetra ipsum sagittis. In hac habitasse platea dictumst. Pellentesque sodales, urna quis commodo convallis, odio erat porttitor neque, condimentum vulputate ligula libero quis felis. Vestibulum magna libero, volutpat nec odio vitae, faucibus auctor sem."
-    ),
-    MyMessage(
-        "Hola 8",
-        "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci vel"
-    ),
-    MyMessage(
-        "Hola 9",
-        "eLorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ligula, imperdiet eu turpis sit amet, interdum fermentum sapien. Etiam sodales est non sem hendrerit, vitae laoreet erat tincidunt. Nulla id nisi eget nulla sodales rutrum a ut lacus. Etiam magna massa, sollicitudin et odio a, sodales blandit justo. Vivamus blandit vehicula faucibus. Nullam congue risus at ligula venenatis, vel pharetra ipsum sagittis. In hac habitasse platea dictumst. Pellentesque sodales, urna quis commodo convallis, odio erat porttitor neque, condimentum vulputate ligula libero quis felis. Vestibulum magna libero, volutpat nec odio vitae, faucibus auctor sem."
-    ),
-    MyMessage(
-        "Hola 10",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specim"
-    ),
-    MyMessage(
-        "Hola 11",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In arcu ligula, imperdiet eu turpis sit amet, interdum fermentum sapien. Etiam sodales est non sem hendrerit, vitae laoreet erat tincidunt. Nulla id nisi eget nulla sodales rutrum a ut lacus. Etiam magna massa, sollicitudin et odio a, sodales blandit justo. Vivamus blandit vehicula faucibus. Nullam congue risus at ligula venenatis, vel pharetra ipsum sagittis. In hac habitasse platea dictumst. Pellentesque sodales, urna quis commodo convallis, odio erat porttitor neque, condimentum vulputate ligula libero quis felis. Vestibulum magna libero, volutpat nec odio vitae, faucibus auctor sem."
-    ),
-    MyMessage(
-        "Hola 12",
-        "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
-    ),
-    MyMessage(
-        "Hola 13",
-        "There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain.."
-    ),
-
     )
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

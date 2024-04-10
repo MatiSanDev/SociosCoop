@@ -46,7 +46,7 @@ fun NavManager() {
             SplashView(navController)
         }
         composable("Notifications") {
-            NotificationsView(navController = navController, messages = messages)
+            NotificationsView(navController, messages = messages)
         }
         composable("Configuration") {
             ConfigurationView(navController)

@@ -8,7 +8,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.socios.Views.Resources.MyMessage
@@ -18,11 +20,20 @@ import com.example.socios.Views.Resources.MyMessage
 fun TitleView(name: String) {
     Text(text = name, fontSize = 40.sp, fontWeight = FontWeight.Bold)
 }
+@Composable
+fun TextBoxTitle(name: String) {
+    Text(text = name, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.SansSerif)
+}
+@Composable
+fun TextBox(name: String) {
+    Text(text = name, fontSize = 15.sp, fontWeight = FontWeight.Light, fontFamily = FontFamily.SansSerif)
+}
 
 @Composable
 fun Space() {
     Spacer(modifier = Modifier.height(10.dp))
 }
+
 
 @Composable
 fun MainButton(name: String, backColor: Color, color: Color, onClick: () -> Unit) {
@@ -36,6 +47,28 @@ fun MainButton(name: String, backColor: Color, color: Color, onClick: () -> Unit
         Text(text = name)
     }
 }
+@Composable
+fun Boton(name: String, backColor: Color, color: Color, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            contentColor = color,
+            containerColor = backColor
+        )
+    ) {
+        Text(text = name)
+    }
+}
+@Composable
+fun TitleService(name: String){
+    Text(
+        text = name,
+        fontWeight = FontWeight.ExtraBold,
+        fontFamily = FontFamily.SansSerif,
+        textAlign = TextAlign.Center
+    )
+}
+
 
 //Notificaciones aleatorias
 fun generateDummyMessages(): List<MyMessage> {

@@ -50,7 +50,7 @@ fun MyTopAppBar(navController: NavController) {
                 MainIconButton(icon = Icons.Default.Settings, "Configuracion") {
                     navController.navigate("Configuration")
                 }
-                MainIconButton(icon = Icons.Default.Notifications, "Notificaciones") {
+                MainIconButton(icon = Icons.Default.Notifications, "Anuncios") {
                     navController.navigate("Notifications")
                 }
                 MainIconButton(icon = Icons.Default.LocationOn, "Direcciones") {
@@ -74,7 +74,7 @@ fun getCurrentRoute(navController: NavController): String {
     val currentRoute = navBackStackEntry?.destination?.route ?: ""
     return when (currentRoute) {
         "Home" -> "Inicio"
-        "Notifications" -> "Avisos"
+        "Notifications" -> "Anuncios"
         "Profile" -> "Perfil"
         "Configuration" -> "Ajustes"
         "Services" -> "Servicios"
