@@ -81,7 +81,10 @@ fun ContentHomeView(navController: NavController) {
             )
         }
         item {
-            Row(modifier = Modifier.padding(horizontal = 30.dp)) { //Row para INVERSIONES
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+        item {
+            Row(modifier = Modifier.padding(horizontal = 10.dp)) { //Row para INVERSIONES
                 Column(//Columna para separar entre titulo y contenido
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
@@ -313,7 +316,7 @@ fun ContentHomeView(navController: NavController) {
             }
         }
         item {
-            Row(modifier = Modifier.padding(horizontal = 30.dp)) { //Row para AHORRO
+            Row(modifier = Modifier.padding(horizontal = 10.dp)) { //Row para AHORRO
                 Column(//Columna para separar entre titulo y contenido
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
@@ -463,7 +466,7 @@ fun ContentHomeView(navController: NavController) {
             }
         }
         item {
-            Row(modifier = Modifier.padding(horizontal = 30.dp)) { //Row para CRÉDITOS
+            Row(modifier = Modifier.padding(horizontal = 10.dp)) { //Row para CRÉDITOS
                 Column(//Columna para separar entre titulo y contenido
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier

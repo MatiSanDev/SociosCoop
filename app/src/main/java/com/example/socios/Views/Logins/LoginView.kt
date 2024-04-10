@@ -85,7 +85,7 @@ fun ContentLoginView(navController: NavController) {
 
         CustomTextBox(
             text = "Bienvenido, socio.",
-            fontSize = 30.sp,
+            fontSize = 25.sp,
             fontWeight = FontWeight.ExtraBold,
             fontFamily = FontFamily.Default,
             textAlign = TextAlign.Center,
@@ -96,7 +96,7 @@ fun ContentLoginView(navController: NavController) {
 
         CustomTextBox(
             text = "Ingresa a tu cuenta",
-            fontSize = 20.sp,
+            fontSize = 15.sp,
             fontWeight = FontWeight.Normal,
             fontFamily = FontFamily.Default,
             textAlign = TextAlign.Center,
@@ -162,7 +162,14 @@ fun ContentLoginView(navController: NavController) {
                         .clickable {
                             navController.navigate("Directions")
                         })
-                Text(text = "Sucursales", fontSize = 12.sp)
+                CustomTextBox(
+                    text = "Sucursales",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    fontFamily = FontFamily.Default,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(0.dp)
+                )
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(painter = painterResource(id = R.drawable.fono),
@@ -173,7 +180,14 @@ fun ContentLoginView(navController: NavController) {
                         .clickable {
                             navController.navigate("Contact")
                         })
-                Text(text = "Contacto", fontSize = 12.sp)
+                CustomTextBox(
+                    text = "Contacto",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    fontFamily = FontFamily.Default,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(0.dp)
+                )
             }
         }
     }
