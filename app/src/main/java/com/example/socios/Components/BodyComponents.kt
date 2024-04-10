@@ -50,11 +50,6 @@ fun CustomTextBox(
     )
 }
 
-
-@Composable
-fun TextBox(name: String) {
-    Text(text = name, fontSize = 15.sp, fontWeight = FontWeight.Light, fontFamily = FontFamily.SansSerif)
-}
 @Composable
 fun CustomIcon(
     icon: ImageVector,
@@ -103,14 +98,7 @@ fun MainButton(name: String, backColor: Color, color: Color, onClick: () -> Unit
         Text(text = name)
     }
 }
-@Composable
-fun TitleService(name: String){
-    Text(
-        text = name,
-        fontWeight = FontWeight.ExtraBold,
-        fontFamily = FontFamily.SansSerif
-    )
-}
+
 
 
 //Notificaciones aleatorias

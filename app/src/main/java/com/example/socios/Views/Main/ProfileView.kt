@@ -31,7 +31,6 @@ import com.example.socios.Components.MainButton
 import com.example.socios.Components.MyBottomAppBar
 import com.example.socios.Components.MyTopAppBar
 import com.example.socios.Components.Space
-import com.example.socios.Components.TextBox
 import com.example.socios.R
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

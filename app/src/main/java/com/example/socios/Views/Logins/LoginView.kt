@@ -27,13 +27,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.socios.Components.CustomTextBox
 import com.example.socios.Components.MainButton
 import com.example.socios.R
+import com.example.socios.Views.Main.HomeView
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -77,11 +83,25 @@ fun ContentLoginView(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Bienvenido, socio.", fontSize = 28.sp, fontWeight = FontWeight.Bold)
+        CustomTextBox(
+            text = "Bienvenido, socio.",
+            fontSize = 30.sp,
+            fontWeight = FontWeight.ExtraBold,
+            fontFamily = FontFamily.Default,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(0.dp)
+        )
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        Text(text = "Ingresa a tu cuenta")
+        CustomTextBox(
+            text = "Ingresa a tu cuenta",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = FontFamily.Default,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(0.dp)
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -107,7 +127,7 @@ fun ContentLoginView(navController: NavController) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        MainButton(name = "Registrate", backColor = Color.Transparent, color = Color.Black) {
+        MainButton(name = "Registrate", backColor = Color.Transparent, color = Color.Unspecified) {
             navController.navigate("Register")
         }
 
@@ -116,7 +136,7 @@ fun ContentLoginView(navController: NavController) {
         MainButton(
             name = "¿Olvidaste tu clave?",
             backColor = Color.Transparent,
-            color = Color.Black
+            color = Color.Unspecified
         ) {
             navController.navigate("Forgot")
         }
@@ -157,4 +177,11 @@ fun ContentLoginView(navController: NavController) {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun LoginViewPreview() {
+    val navController = rememberNavController()
+    LoginView(navController)
 }
