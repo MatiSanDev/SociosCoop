@@ -1,5 +1,6 @@
 package com.example.socios.Screens
 
+import android.widget.SearchView
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
@@ -11,13 +12,14 @@ import com.example.socios.Views.Logins.LoginView
 import com.example.socios.Views.Logins.RegisterView
 import com.example.socios.Views.Main.HomeView
 import com.example.socios.Views.Main.ProfileView
-import com.example.socios.Views.Main.SearchView
 import com.example.socios.Views.Main.ServicesView
 import com.example.socios.Views.Resources.ConfigurationView
 import com.example.socios.Views.Resources.ContactView
 import com.example.socios.Views.Resources.DirectionsView
 import com.example.socios.Views.Resources.NotificationsView
 import com.example.socios.Views.Resources.SplashView
+import com.example.socios.Views.Resources.SearchView
+
 
 @Composable
 fun NavManager() {
@@ -52,6 +54,9 @@ fun NavManager() {
         composable("Configuration") {
             ConfigurationView(navController)
         }
+        composable("Search") {
+            SearchView(navController)
+        }
 
         //Main
         composable("Home") {
@@ -62,9 +67,6 @@ fun NavManager() {
         }
         composable("Services") {
             ServicesView(navController)
-        }
-        composable("Search") {
-            SearchView(navController)
         }
     }
 }

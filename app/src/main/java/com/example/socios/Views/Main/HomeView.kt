@@ -130,7 +130,7 @@ fun ContentHomeView(navController: NavController) {
 
                     ) {
                         CustomImage(
-                            painter = painterResource(id = R.drawable.inversiones),
+                            painter = painterResource(id = R.drawable.peso),
                             contentDescription = "Inversiones logo",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.size(60.dp)
@@ -140,7 +140,7 @@ fun ContentHomeView(navController: NavController) {
                                 .padding(start = 10.dp)
                         ) {
                             CustomTextBox(
-                                text = "DEPÓSITO A PLAZO",
+                                text = "DEPÓSITO A PLAZO EN PESOS",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Default,
@@ -193,7 +193,7 @@ fun ContentHomeView(navController: NavController) {
 
                     ) {
                         CustomImage(
-                            painter = painterResource(id = R.drawable.inversiones),
+                            painter = painterResource(id = R.drawable.uf),
                             contentDescription = "Inversiones logo",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.size(60.dp)
@@ -203,7 +203,7 @@ fun ContentHomeView(navController: NavController) {
                                 .padding(start = 10.dp)
                         ) {
                             CustomTextBox(
-                                text = "DEPÓSITO A PLAZO",
+                                text = "DEPÓSITO A PLAZO EN UF",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Default,
@@ -219,7 +219,7 @@ fun ContentHomeView(navController: NavController) {
                                 modifier = Modifier.padding(0.dp)
                             )
                             CustomTextBox(
-                                text = "Monto invertido: $10.000",
+                                text = "Monto invertido: 1.000 UF",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Thin,
                                 fontFamily = FontFamily.Default,
@@ -256,7 +256,7 @@ fun ContentHomeView(navController: NavController) {
 
                     ) {
                         CustomImage(
-                            painter = painterResource(id = R.drawable.inversiones),
+                            painter = painterResource(id = R.drawable.usd),
                             contentDescription = "Inversiones logo",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.size(60.dp)
@@ -266,7 +266,7 @@ fun ContentHomeView(navController: NavController) {
                                 .padding(start = 10.dp)
                         ) {
                             CustomTextBox(
-                                text = "DEPÓSITO A PLAZO",
+                                text = "DEPÓSITO A PLAZO EN DÓLARES",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Default,
@@ -282,7 +282,7 @@ fun ContentHomeView(navController: NavController) {
                                 modifier = Modifier.padding(0.dp)
                             )
                             CustomTextBox(
-                                text = "Monto invertido: $50.000",
+                                text = "Monto invertido: 500 USD",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Thin,
                                 fontFamily = FontFamily.Default,
@@ -370,7 +370,7 @@ fun ContentHomeView(navController: NavController) {
                                 .padding(start = 10.dp)
                         ) {
                             CustomTextBox(
-                                text = "CUENTA PREMIUM",
+                                text = "CUENTA DE AHORRO PREMIUM",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Default,
@@ -415,7 +415,7 @@ fun ContentHomeView(navController: NavController) {
 
                     ) {
                         CustomImage(
-                            painter = painterResource(id = R.drawable.cuenta),
+                            painter = painterResource(id = R.drawable.vivienda),
                             contentDescription = "Ahorros logo",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.size(60.dp)
@@ -425,7 +425,7 @@ fun ContentHomeView(navController: NavController) {
                                 .padding(start = 10.dp)
                         ) {
                             CustomTextBox(
-                                text = "CUENTA VIVIENDA",
+                                text = "CUENTA DE AHORRO VIVIENDA",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Default,
@@ -557,7 +557,7 @@ fun ContentHomeView(navController: NavController) {
                                 CustomIcon(Icons.Default.CheckCircle,"Checkeado",tint = Color.Red, modifier = Modifier.size(15.dp))
                                 Spacer(modifier = Modifier.padding(horizontal = 3.dp))
                                 CustomTextBox(
-                                    text = "Asegurado",
+                                    text = "Solicitado",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Normal,
                                     fontFamily = FontFamily.Default,
@@ -620,7 +620,7 @@ fun ContentHomeView(navController: NavController) {
                                 CustomIcon(Icons.Default.CheckCircle,"Checkeado",tint = Color.Red, modifier = Modifier.size(15.dp))
                                 Spacer(modifier = Modifier.padding(horizontal = 3.dp))
                                 CustomTextBox(
-                                    text = "Asegurado",
+                                    text = "Solicitado",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Normal,
                                     fontFamily = FontFamily.Default,

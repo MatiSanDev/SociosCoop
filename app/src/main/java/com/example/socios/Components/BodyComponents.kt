@@ -158,5 +158,3 @@ fun generateDummyMessages(): List<MyMessage> {
         ),
     )
 }
-
-
