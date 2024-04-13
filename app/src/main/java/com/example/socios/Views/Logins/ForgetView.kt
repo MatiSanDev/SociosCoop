@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -33,9 +34,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.socios.Components.MainButton
 import com.example.socios.Components.maxWidthIn
 import com.example.socios.R
@@ -110,7 +113,10 @@ fun ContentForgotView(navController: NavController) {
                     Toast.makeText(context, "Se ha enviado un correo electrónico con las instrucciones", Toast.LENGTH_LONG).show()
                     navController.navigate("Login")
                 }
-            }
+            },
+            modifier = Modifier.height(50.dp).maxWidthIn(130.dp),
+            shape = RoundedCornerShape(50.dp),
+            colors = ButtonDefaults.buttonColors(Color.Red)
         )
         {
             Text("Recuperar")
@@ -153,4 +159,10 @@ fun ContentForgotView(navController: NavController) {
             }
         }
     }
+}
+@Preview
+@Composable
+fun ForgotViewPreview() {
+    val navController = rememberNavController()
+    ForgotView(navController)
 }

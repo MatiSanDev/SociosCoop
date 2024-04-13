@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -34,9 +35,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.socios.Components.MainButton
 import com.example.socios.Components.maxWidthIn
 import com.example.socios.R
@@ -135,7 +138,7 @@ fun ContentRegisterView(navController: NavController) {
                 clave2 = it
             },
             label = {
-                Text(text = "Ingresa tu clave")
+                Text(text = "Ingresa tu clave nuevamente")
             },
             singleLine = true,
             maxLines = 1,
@@ -167,8 +170,9 @@ fun ContentRegisterView(navController: NavController) {
                 }
             }
             ,
-            modifier = Modifier.height(50.dp).maxWidthIn(100.dp),
+            modifier = Modifier.height(50.dp).maxWidthIn(130.dp),
             shape = RoundedCornerShape(50.dp),
+            colors = ButtonDefaults.buttonColors(Color.Red)
 
             ) {
             Text("Registrar")
@@ -222,4 +226,10 @@ fun ContentRegisterView(navController: NavController) {
             }
         }
     }
+}
+@Preview
+@Composable
+fun RegisterViewPreview() {
+    val navController = rememberNavController()
+    RegisterView(navController)
 }
