@@ -1,6 +1,7 @@
 package com.example.socios.Views.Logins
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,7 +14,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -26,9 +31,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,6 +45,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.socios.Components.CustomTextBox
 import com.example.socios.Components.MainButton
+import com.example.socios.Components.maxWidthIn
 import com.example.socios.R
 import com.example.socios.Views.Main.HomeView
 
@@ -64,6 +72,7 @@ fun ContentLoginView(navController: NavController) {
     var clave by remember {
         mutableStateOf("")
     }
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -105,24 +114,66 @@ fun ContentLoginView(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = rut, onValueChange = {
-            rut = it
-        }, label = {
-            Text(text = "Ingresa tu RUT")
-        })
-
+        OutlinedTextField(
+            value = rut,
+            onValueChange = {
+                rut = it
+            },
+            label = {
+                Text(text = "Ingresa tu RUT, sin guión.")
+            },
+            singleLine = true,
+            maxLines = 1,
+            modifier = Modifier.maxWidthIn(280.dp),
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedTextField(
+            value = clave,
+            onValueChange = {
+                clave = it
+            },
+            label = {
+                Text(text = "Ingresa tu clave")
+            },
+            singleLine = true,
+            maxLines = 1,
+            modifier = Modifier.maxWidthIn(280.dp),
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
+        )
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = clave, onValueChange = {
-            clave = it
-        }, label = {
-            Text(text = "Ingresa tu clave")
-        }, visualTransformation = PasswordVisualTransformation())
+        Button(
+            onClick = {
+                println("Rut: $rut")
+                println("Clave: $clave")
 
-        Spacer(modifier = Modifier.height(16.dp))
+                if ((rut == "123456789" || rut == "12345678") && clave == "admin") {
+                    navController.navigate("Home")
+                } else if (rut.isNullOrEmpty()) {
+                    println("Ingrese un Rut, por favor.")
+                    Toast.makeText(context, "Ingrese un Rut, por favor.", Toast.LENGTH_SHORT).show()
+                } else if (!rut.all { it.isDigit() }) {
+                    println("Ingrese solo dígito.")
+                    Toast.makeText(context, "Ingrese solo dígito.", Toast.LENGTH_SHORT).show()
+                } else if (rut.length !in 8..9) {
+                    println("Ingrese un Rut válido.")
+                    Toast.makeText(context, "Ingrese un Rut válido.", Toast.LENGTH_SHORT).show()
+                } else if (clave.isNullOrEmpty()) {
+                    println("Ingrese su clave.")
+                    Toast.makeText(context, "Ingrese su clave.", Toast.LENGTH_SHORT).show()
+                } else {
+                    println("Credenciales inválidas")
+                    Toast.makeText(context, "Credenciales inválidas.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            ,
+            modifier = Modifier.height(50.dp).maxWidthIn(100.dp),
+            shape = RoundedCornerShape(50.dp),
 
-        MainButton(name = "Ingresar", backColor = Color.Red, color = Color.White) {
-            navController.navigate("Home")
+            ) {
+            Text("Ingresar")
         }
 
         Spacer(modifier = Modifier.height(20.dp))

@@ -1,5 +1,6 @@
 package com.example.socios.Views.Logins
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,6 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -25,13 +29,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.socios.Components.MainButton
+import com.example.socios.Components.maxWidthIn
 import com.example.socios.R
 
 @Composable
@@ -58,6 +65,7 @@ fun ContentRegisterView(navController: NavController) {
     var clave2 by remember {
         mutableStateOf("")
     }
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -88,32 +96,82 @@ fun ContentRegisterView(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = rut, onValueChange = {
-            rut = it
-        }, label = {
-            Text(text = "Ingresa tu RUT")
-        })
+        OutlinedTextField(
+            value = rut,
+            onValueChange = {
+                rut = it
+            },
+            label = {
+                Text(text = "Ingresa tu Rut, sin guión.")
+            },
+            singleLine = true,
+            maxLines = 1,
+            modifier = Modifier.maxWidthIn(280.dp),
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = clave, onValueChange = {
-            clave = it
-        }, label = {
-            Text(text = "Ingresa tu clave")
-        }, visualTransformation = PasswordVisualTransformation())
+        OutlinedTextField(
+            value = clave,
+            onValueChange = {
+                clave = it
+            },
+            label = {
+                Text(text = "Ingresa tu clave")
+            },
+            singleLine = true,
+            maxLines = 1,
+            modifier = Modifier.maxWidthIn(280.dp),
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = clave2, onValueChange = {
-            clave2 = it
-        }, label = {
-            Text(text = "Ingresa tu clave nuevamente")
-        }, visualTransformation = PasswordVisualTransformation())
+        OutlinedTextField(
+            value = clave2,
+            onValueChange = {
+                clave2 = it
+            },
+            label = {
+                Text(text = "Ingresa tu clave")
+            },
+            singleLine = true,
+            maxLines = 1,
+            modifier = Modifier.maxWidthIn(280.dp),
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        MainButton(name = "Registrar", backColor = Color.Red, color = Color.White) {
-            navController.navigate("Login")
+        Button(
+            onClick = {
+                if (rut.isNullOrEmpty() || clave.isNullOrEmpty() || clave2.isNullOrEmpty()) {
+                    println("Complete todos los campos.")
+                    Toast.makeText(context, "Complete todos los campos.", Toast.LENGTH_SHORT).show()
+                } else if (!rut.all { it.isDigit() } || !(rut.length in 8..9)) {
+                    println("Ingrese un RUT válido.")
+                    Toast.makeText(context, "Ingrese un RUT válido.", Toast.LENGTH_SHORT).show()
+                } else if (clave != clave2) {
+                    println("Las claves deben ser idénticas.")
+                    Toast.makeText(context, "Las claves deben ser idénticas.", Toast.LENGTH_SHORT).show()
+                } else if (clave.length !in 4..10) {
+                    println("La clave debe tener entre 4 y 10 caracteres.")
+                    Toast.makeText(context, "La clave debe tener entre 4 y 10 caracteres.", Toast.LENGTH_SHORT).show()
+                } else {
+                    navController.navigate("Login")
+                    println("Usuario registrado")
+                    Toast.makeText(context, "Usuario registrado", Toast.LENGTH_SHORT).show()
+                }
+            }
+            ,
+            modifier = Modifier.height(50.dp).maxWidthIn(100.dp),
+            shape = RoundedCornerShape(50.dp),
+
+            ) {
+            Text("Registrar")
         }
 
         Spacer(modifier = Modifier.height(20.dp))

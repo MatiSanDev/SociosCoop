@@ -10,13 +10,16 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -157,4 +160,12 @@ fun generateDummyMessages(): List<MyMessage> {
             "En Socio Ahorro Seguro, protegemos tus fondos mientras maximizamos tus ganancias. ¡Confía en nosotros para asegurar tu bienestar financiero!"
         ),
     )
+}
+fun Modifier.maxWidthIn(maxWidth: Dp): Modifier = composed {
+    layout { measurable, constraints ->
+        val placeable = measurable.measure(constraints.copy(maxWidth = maxWidth.roundToPx()))
+        layout(placeable.width.coerceAtMost(maxWidth.roundToPx()), placeable.height) {
+            placeable.placeRelative(0, 0)
+        }
+    }
 }

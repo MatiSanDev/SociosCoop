@@ -1,5 +1,6 @@
 package com.example.socios.Views.Logins
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,6 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -25,14 +29,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.socios.Components.MainButton
+import com.example.socios.Components.maxWidthIn
 import com.example.socios.R
-
 @Composable
 fun ForgotView(navController: NavController) {
     ContentForgotView(navController)
@@ -46,6 +52,7 @@ fun ContentForgotView(navController: NavController) {
     var clave by remember {
         mutableStateOf("")
     }
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,16 +80,40 @@ fun ContentForgotView(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = rut, onValueChange = {
-            rut = it
-        }, label = {
-            Text(text = "Ingresa tu RUT")
-        })
+        OutlinedTextField(
+            value = rut,
+            onValueChange = {
+                rut = it
+            },
+            label = {
+                Text(text = "Ingresa tu RUT, sin guión.")
+            },
+            singleLine = true,
+            maxLines = 1,
+            modifier = Modifier.maxWidthIn(310.dp),
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        MainButton(name = "Recuperar", backColor = Color.Red, color = Color.White) {
-            navController.navigate("Login")
+        Button(
+            onClick = {
+                println("Rut: $rut")
+                if (rut.isNullOrEmpty()) {
+                    println("Ingrese un rut, por favor")
+                    Toast.makeText(context, "Ingrese un rut, por favor", Toast.LENGTH_SHORT).show()
+                } else if (rut.length < 8 || rut.length > 9 || !rut.all { it.isDigit() }) {
+                    println("Ingrese un rut válido")
+                    Toast.makeText(context, "Ingrese un rut válido", Toast.LENGTH_SHORT).show()
+                } else {
+                    println("Se ha enviado un correo electrónico con las instrucciones")
+                    Toast.makeText(context, "Se ha enviado un correo electrónico con las instrucciones", Toast.LENGTH_LONG).show()
+                    navController.navigate("Login")
+                }
+            }
+        )
+        {
+            Text("Recuperar")
         }
     }
     Column(
