@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,16 +15,23 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,6 +43,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.socios.Components.CustomIcon
@@ -44,11 +57,29 @@ import com.example.socios.Components.MyBottomAppBar
 import com.example.socios.Components.MyTopAppBar
 import com.example.socios.Components.Space
 import com.example.socios.R
+import com.example.socios.RetrofitInstance
+import kotlinx.coroutines.launch
+
+
+class MainViewModel : ViewModel() {
+    private val _officialDolar = MutableLiveData<Double>()
+    val officialDolar: LiveData<Double> = _officialDolar
+
+    fun fetchOfficialDolar() {
+        viewModelScope.launch {
+            val response = RetrofitInstance.dolarApi.getOfficialDolar()
+            if (response.isSuccessful) {
+                _officialDolar.value = response.body()?.value
+            }
+        }
+    }
+}
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeView(navController: NavController) {
+fun HomeView(navController: NavController, viewModel: MainViewModel = viewModel()) {
+    val officialDolar by viewModel.officialDolar.observeAsState()
     Scaffold(
         topBar = {
             MyTopAppBar(navController)
@@ -57,21 +88,40 @@ fun HomeView(navController: NavController) {
             MyBottomAppBar(navController)
         }
     ) {
-        ContentHomeView(navController)
+        officialDolar?.let { dolar ->
+            Text(text = "Valor del dólar: $dolar")
+        }
     }
 }
 
+
 @Composable
-fun ContentHomeView(navController: NavController) {
+fun ContentHomeView(navController: NavController, officialDolar: Double?) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = 73.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally)
+        horizontalAlignment = Alignment.CenterHorizontally
+    )
     {
+        officialDolar?.let {
+            item {
+                Text(
+                    text = "Valor del dólar oficial: $officialDolar",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Light,
+                    fontFamily = FontFamily.Default,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(0.dp)
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+        }
         item {
-            CustomTextBox(
+            Text(
                 text = "Tus productos contratados: ",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Light,
@@ -172,7 +222,12 @@ fun ContentHomeView(navController: NavController) {
                                 modifier = Modifier.padding(0.dp)
                             )
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                CustomIcon(Icons.Default.CheckCircle,"Checkeado",tint = Color.Cyan, modifier = Modifier.size(15.dp))
+                                CustomIcon(
+                                    Icons.Default.CheckCircle,
+                                    "Checkeado",
+                                    tint = Color.Cyan,
+                                    modifier = Modifier.size(15.dp)
+                                )
                                 Spacer(modifier = Modifier.padding(horizontal = 3.dp))
                                 CustomTextBox(
                                     text = "Renovable",
@@ -235,7 +290,12 @@ fun ContentHomeView(navController: NavController) {
                                 modifier = Modifier.padding(0.dp)
                             )
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                CustomIcon(Icons.Default.CheckCircle,"Checkeado",tint = Color.Cyan, modifier = Modifier.size(15.dp))
+                                CustomIcon(
+                                    Icons.Default.CheckCircle,
+                                    "Checkeado",
+                                    tint = Color.Cyan,
+                                    modifier = Modifier.size(15.dp)
+                                )
                                 Spacer(modifier = Modifier.padding(horizontal = 3.dp))
                                 CustomTextBox(
                                     text = "Renovable",
@@ -298,7 +358,12 @@ fun ContentHomeView(navController: NavController) {
                                 modifier = Modifier.padding(0.dp)
                             )
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                CustomIcon(Icons.Default.CheckCircle,"Checkeado",tint = Color.Cyan, modifier = Modifier.size(15.dp))
+                                CustomIcon(
+                                    Icons.Default.CheckCircle,
+                                    "Checkeado",
+                                    tint = Color.Cyan,
+                                    modifier = Modifier.size(15.dp)
+                                )
                                 Spacer(modifier = Modifier.padding(horizontal = 3.dp))
                                 CustomTextBox(
                                     text = "Fijo",
@@ -394,7 +459,12 @@ fun ContentHomeView(navController: NavController) {
                                 modifier = Modifier.padding(0.dp)
                             )
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                CustomIcon(Icons.Default.CheckCircle,"Checkeado",tint = Color.Red, modifier = Modifier.size(15.dp))
+                                CustomIcon(
+                                    Icons.Default.CheckCircle,
+                                    "Checkeado",
+                                    tint = Color.Red,
+                                    modifier = Modifier.size(15.dp)
+                                )
                                 Spacer(modifier = Modifier.padding(horizontal = 3.dp))
                                 CustomTextBox(
                                     text = "Asegurado",
@@ -449,7 +519,12 @@ fun ContentHomeView(navController: NavController) {
                                 modifier = Modifier.padding(0.dp)
                             )
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                CustomIcon(Icons.Default.CheckCircle,"Checkeado",tint = Color.Red, modifier = Modifier.size(15.dp))
+                                CustomIcon(
+                                    Icons.Default.CheckCircle,
+                                    "Checkeado",
+                                    tint = Color.Red,
+                                    modifier = Modifier.size(15.dp)
+                                )
                                 Spacer(modifier = Modifier.padding(horizontal = 3.dp))
                                 CustomTextBox(
                                     text = "Asegurado",
@@ -554,7 +629,12 @@ fun ContentHomeView(navController: NavController) {
                                 modifier = Modifier.padding(0.dp)
                             )
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                CustomIcon(Icons.Default.CheckCircle,"Checkeado",tint = Color.Red, modifier = Modifier.size(15.dp))
+                                CustomIcon(
+                                    Icons.Default.CheckCircle,
+                                    "Checkeado",
+                                    tint = Color.Red,
+                                    modifier = Modifier.size(15.dp)
+                                )
                                 Spacer(modifier = Modifier.padding(horizontal = 3.dp))
                                 CustomTextBox(
                                     text = "Solicitado",
@@ -617,7 +697,12 @@ fun ContentHomeView(navController: NavController) {
                                 modifier = Modifier.padding(0.dp)
                             )
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                CustomIcon(Icons.Default.CheckCircle,"Checkeado",tint = Color.Red, modifier = Modifier.size(15.dp))
+                                CustomIcon(
+                                    Icons.Default.CheckCircle,
+                                    "Checkeado",
+                                    tint = Color.Red,
+                                    modifier = Modifier.size(15.dp)
+                                )
                                 Spacer(modifier = Modifier.padding(horizontal = 3.dp))
                                 CustomTextBox(
                                     text = "Solicitado",
@@ -636,10 +721,15 @@ fun ContentHomeView(navController: NavController) {
     }
 }
 
+
 @Preview
 @Composable
 fun HomeViewPreview() {
     val navController = rememberNavController()
-    HomeView(navController)
+    val viewModel = MainViewModel()
+    viewModel.fetchOfficialDolar()
+    val officialDolar = viewModel.officialDolar
+    HomeView(navController = navController, officialDolar = officialDolar)
 }
+
 

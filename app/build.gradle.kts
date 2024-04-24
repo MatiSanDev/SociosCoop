@@ -72,4 +72,9 @@ dependencies {
     val nav_version = "2.7.7"
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
+    //Dependencias internet api
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")    //Permite consumir la api
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0") //Convierte las respuestas json para que kotlin las lea
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
+
 }
