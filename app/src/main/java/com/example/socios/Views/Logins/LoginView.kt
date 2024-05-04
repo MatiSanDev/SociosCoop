@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -24,6 +23,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,15 +43,59 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.socios.Components.CustomTextBox
 import com.example.socios.Components.MainButton
 import com.example.socios.Components.maxWidthIn
 import com.example.socios.R
-import com.example.socios.Views.Main.HomeView
+import com.example.socios.modelo.UsuarioLogin
+import com.example.socios.util.RetrofitInstance
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
+class MainViewModel : ViewModel() {
+    val isLoading = mutableStateOf(false)
+    private val _userCreationResult = MutableStateFlow<UserCreationResult?>(null)
+    val userCreationResult = _userCreationResult.asStateFlow()
 
+    fun loginUsuario(mail: String, pass: String) {
+        var usuario: UsuarioLogin
+        usuario = UsuarioLogin(mail, pass)
+
+        viewModelScope.launch {
+            isLoading.value = true
+            val response = RetrofitInstance.api.usuarioLogin(usuario)
+
+            if (response.isSuccessful) {
+                val respuesta = response.body()?.get(0)?.RESPUESTA
+                _userCreationResult.value = UserCreationResult.Success(respuesta)
+            } else {
+                println("RESPUESTA ERROR")
+                //_userCreationResult.value = UserCreationResult.Error(response.message())
+            }
+            isLoading.value = false
+            resetUserCreationResult()
+        }
+    }
+
+    fun resetUserCreationResult() {
+        viewModelScope.launch {
+            delay(1000)
+            _userCreationResult.value = null
+        }
+    }
+
+    sealed class UserCreationResult {
+        data class Success(val data: Any?): UserCreationResult()
+        data class Error(val message: String): UserCreationResult()
+    }
+}
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LoginView(navController: NavController) {
@@ -67,13 +112,40 @@ sino lanzar un aviso
 @Composable
 fun ContentLoginView(navController: NavController) {
 
-    var rut by remember {
+    var mail by remember {
         mutableStateOf("")
     }
-    var clave by remember {
+    var pass by remember {
         mutableStateOf("")
     }
     val context = LocalContext.current
+    var viewModel: MainViewModel = viewModel()
+    val userCreationResult by viewModel.userCreationResult.collectAsState()
+
+    LaunchedEffect(userCreationResult) {
+        when ( val result = userCreationResult) {
+            is MainViewModel.UserCreationResult.Success -> {
+                val respuesta = result.data as String
+
+                if(respuesta == "LOGIN OK"){
+                    println("MSV: USUARIO CORRECTO NAVEGAMO")
+                    }
+                else{
+                    println("MSV: CREDENCIALES INVALIDAS")
+                    Toast.makeText(context,"Credenciales invalidas",
+                        Toast.LENGTH_LONG).show()
+                }
+            }
+
+            is MainViewModel.UserCreationResult.Error -> {
+
+            }
+
+            null -> {
+                println("PASA POR EL NULL");
+            }
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -116,12 +188,12 @@ fun ContentLoginView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = rut,
+            value = mail,
             onValueChange = {
-                rut = it
+                mail = it
             },
             label = {
-                Text(text = "Ingresa tu RUT, sin guión.")
+                Text(text = "Ingresa tu mail")
             },
             singleLine = true,
             maxLines = 1,
@@ -130,9 +202,9 @@ fun ContentLoginView(navController: NavController) {
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
-            value = clave,
+            value = pass,
             onValueChange = {
-                clave = it
+                pass = it
             },
             label = {
                 Text(text = "Ingresa tu clave")
@@ -147,27 +219,28 @@ fun ContentLoginView(navController: NavController) {
 
         Button(
             onClick = {
-                println("Rut: $rut")
-                println("Clave: $clave")
-
-                if ((rut == "123456789" || rut == "12345678") && clave == "admin") {
+                println("Rut: $mail")
+                println("Clave: $pass")
+                viewModel.loginUsuario(mail,pass)
+                //Despues cambiar a rut por mail, esto es solo prueba xd
+                /*if ((mail == "123456789" || mail == "12345678") && pass == "admin") {
                     navController.navigate("Home")
-                } else if (rut.isNullOrEmpty()) {
+                } else if (mail.isNullOrEmpty()) {
                     println("Ingrese un Rut, por favor.")
                     Toast.makeText(context, "Ingrese un Rut, por favor.", Toast.LENGTH_SHORT).show()
-                } else if (!rut.all { it.isDigit() }) {
+                } else if (!mail.all { it.isDigit() }) {
                     println("Ingrese solo dígito.")
                     Toast.makeText(context, "Ingrese solo dígito.", Toast.LENGTH_SHORT).show()
-                } else if (rut.length !in 8..9) {
+                } else if (mail.length !in 8..9) {
                     println("Ingrese un Rut válido.")
                     Toast.makeText(context, "Ingrese un Rut válido.", Toast.LENGTH_SHORT).show()
-                } else if (clave.isNullOrEmpty()) {
+                } else if (pass.isNullOrEmpty()) {
                     println("Ingrese su clave.")
                     Toast.makeText(context, "Ingrese su clave.", Toast.LENGTH_SHORT).show()
                 } else {
                     println("Credenciales inválidas")
                     Toast.makeText(context, "Credenciales inválidas.", Toast.LENGTH_SHORT).show()
-                }
+                }*/
             }
             ,
             modifier = Modifier.height(50.dp).maxWidthIn(130.dp),
