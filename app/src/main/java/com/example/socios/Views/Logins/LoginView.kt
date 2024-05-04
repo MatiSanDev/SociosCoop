@@ -142,7 +142,7 @@ fun ContentLoginView(navController: NavController) {
             }
 
             null -> {
-                println("PASA POR EL NULL");
+                println("PASA POR EL NULL.");
             }
         }
     }
