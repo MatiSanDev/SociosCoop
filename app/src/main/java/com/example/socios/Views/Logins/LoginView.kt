@@ -51,6 +51,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.socios.Components.CustomTextBox
 import com.example.socios.Components.MainButton
 import com.example.socios.Components.maxWidthIn
+import com.example.socios.Components.validarCorreoElectronico
 import com.example.socios.R
 import com.example.socios.modelo.UsuarioLogin
 import com.example.socios.util.RetrofitInstance
@@ -131,9 +132,9 @@ fun ContentLoginView(navController: NavController) {
                     println("MSV: USUARIO CORRECTO NAVEGAMO")
                     }
                 else{
-                    println("MSV: CREDENCIALES INVALIDAS")
-                    Toast.makeText(context,"Credenciales invalidas",
-                        Toast.LENGTH_LONG).show()
+                    println("MSV: CREDENCIALES INVALIDAS (arreglar esto pq si entra a la api)")
+                    //Toast.makeText(context,"Credenciales invalidas",
+                        //Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -219,28 +220,29 @@ fun ContentLoginView(navController: NavController) {
 
         Button(
             onClick = {
-                println("Rut: $mail")
+                println("Mail: $mail")
                 println("Clave: $pass")
                 viewModel.loginUsuario(mail,pass)
-                //Despues cambiar a rut por mail, esto es solo prueba xd
-                /*if ((mail == "123456789" || mail == "12345678") && pass == "admin") {
-                    navController.navigate("Home")
-                } else if (mail.isNullOrEmpty()) {
-                    println("Ingrese un Rut, por favor.")
-                    Toast.makeText(context, "Ingrese un Rut, por favor.", Toast.LENGTH_SHORT).show()
-                } else if (!mail.all { it.isDigit() }) {
-                    println("Ingrese solo dígito.")
-                    Toast.makeText(context, "Ingrese solo dígito.", Toast.LENGTH_SHORT).show()
-                } else if (mail.length !in 8..9) {
-                    println("Ingrese un Rut válido.")
-                    Toast.makeText(context, "Ingrese un Rut válido.", Toast.LENGTH_SHORT).show()
+                if (mail.isNullOrEmpty()) {
+                    println("Ingrese un mail, por favor.")
+                    Toast.makeText(context, "Ingrese un mail, por favor.", Toast.LENGTH_SHORT).show()
                 } else if (pass.isNullOrEmpty()) {
                     println("Ingrese su clave.")
                     Toast.makeText(context, "Ingrese su clave.", Toast.LENGTH_SHORT).show()
-                } else {
-                    println("Credenciales inválidas")
-                    Toast.makeText(context, "Credenciales inválidas.", Toast.LENGTH_SHORT).show()
-                }*/
+                } else if (!mail.contains("@")) {
+                    println("Correo electrónico inválido: Falta el caracter '@'")
+                    Toast.makeText(context, "Correo electrónico inválido: Falta el caracter '@'", Toast.LENGTH_LONG).show()
+                } else if (!validarCorreoElectronico(mail)) {
+                    println("Correo electrónico inválido")
+                    Toast.makeText(context, "Correo electrónico inválido", Toast.LENGTH_SHORT).show()
+                }
+                else if (pass.length !in 4..8) {
+                    println("Clave incompleta (largo)")
+                    Toast.makeText(context, "Clave incompleta (largo)", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    navController.navigate("Home")
+                }
             }
             ,
             modifier = Modifier.height(50.dp).maxWidthIn(130.dp),

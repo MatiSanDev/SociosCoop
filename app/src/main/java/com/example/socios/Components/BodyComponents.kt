@@ -161,6 +161,30 @@ fun generateDummyMessages(): List<MyMessage> {
         ),
     )
 }
+
+fun validarCorreoElectronico(correo: String): Boolean {
+    val partesCorreo = correo.split("@")
+    if (partesCorreo.size != 2 || partesCorreo[0].isEmpty() || partesCorreo[1].isEmpty()) {
+        println("Correo electrónico inválido: debe contener un solo símbolo '@'")
+        return false
+    }
+    val dominio = partesCorreo[1].split(".")
+    if (dominio.size < 2) {
+        println("Correo electrónico inválido: dominio incompleto")
+        return false
+    }
+    if (correo.length !in 5..50) {
+        println("Correo electrónico inválido: longitud fuera de rango")
+        return false
+    }
+    val caracteresPermitidos = Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
+    if (!caracteresPermitidos.matches(correo)) {
+        println("Correo electrónico inválido: contiene caracteres no permitidos")
+        return false
+    }
+
+    return true
+}
 fun Modifier.maxWidthIn(maxWidth: Dp): Modifier = composed {
     layout { measurable, constraints ->
         val placeable = measurable.measure(constraints.copy(maxWidth = maxWidth.roundToPx()))
