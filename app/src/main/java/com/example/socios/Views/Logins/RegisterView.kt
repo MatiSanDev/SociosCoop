@@ -42,6 +42,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.socios.Components.MainButton
 import com.example.socios.Components.maxWidthIn
+import com.example.socios.Components.validarCorreoElectronico
 import com.example.socios.R
 
 @Composable
@@ -59,13 +60,13 @@ Guardar datos en una bdd
 @Composable
 fun ContentRegisterView(navController: NavController) {
 
-    var rut by remember {
+    var mail by remember {
         mutableStateOf("")
     }
-    var clave by remember {
+    var pass by remember {
         mutableStateOf("")
     }
-    var clave2 by remember {
+    var pass2 by remember {
         mutableStateOf("")
     }
     val context = LocalContext.current
@@ -100,12 +101,12 @@ fun ContentRegisterView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = rut,
+            value = mail,
             onValueChange = {
-                rut = it
+                mail = it
             },
             label = {
-                Text(text = "Ingresa tu Rut, sin guión.")
+                Text(text = "Ingresa tu mail.")
             },
             singleLine = true,
             maxLines = 1,
@@ -116,9 +117,9 @@ fun ContentRegisterView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = clave,
+            value = pass,
             onValueChange = {
-                clave = it
+                pass = it
             },
             label = {
                 Text(text = "Ingresa tu clave")
@@ -133,9 +134,9 @@ fun ContentRegisterView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = clave2,
+            value = pass2,
             onValueChange = {
-                clave2 = it
+                pass2 = it
             },
             label = {
                 Text(text = "Ingresa tu clave nuevamente")
@@ -151,18 +152,27 @@ fun ContentRegisterView(navController: NavController) {
 
         Button(
             onClick = {
-                if (rut.isNullOrEmpty() || clave.isNullOrEmpty() || clave2.isNullOrEmpty()) {
+                if (mail.isNullOrEmpty() || pass.isNullOrEmpty() || pass2.isNullOrEmpty()) {
                     println("Complete todos los campos.")
                     Toast.makeText(context, "Complete todos los campos.", Toast.LENGTH_SHORT).show()
-                } else if (!rut.all { it.isDigit() } || !(rut.length in 8..9)) {
-                    println("Ingrese un RUT válido.")
-                    Toast.makeText(context, "Ingrese un RUT válido.", Toast.LENGTH_SHORT).show()
-                } else if (clave != clave2) {
+                } else if (mail.isNullOrEmpty()) {
+                    println("Ingrese un mail, por favor.")
+                    Toast.makeText(context, "Ingrese un mail, por favor.", Toast.LENGTH_SHORT).show()
+                } else if (pass.isNullOrEmpty()) {
+                    println("Ingrese una clave. Mínimo 4 a 8 caracteres")
+                    Toast.makeText(context, "Ingrese su clave. Mínimo 4 a 8 caracteres", Toast.LENGTH_SHORT).show()
+                } else if (!mail.contains("@")) {
+                    println("Correo electrónico inválido: Falta el caracter '@'")
+                    Toast.makeText(context, "Correo electrónico inválido: Falta el caracter '@'", Toast.LENGTH_LONG).show()
+                } else if (!validarCorreoElectronico(mail)) {
+                    println("Correo electrónico inválido")
+                    Toast.makeText(context, "Correo electrónico inválido", Toast.LENGTH_SHORT).show()
+                }else if (pass != pass2) {
                     println("Las claves deben ser idénticas.")
                     Toast.makeText(context, "Las claves deben ser idénticas.", Toast.LENGTH_SHORT).show()
-                } else if (clave.length !in 4..10) {
-                    println("La clave debe tener entre 4 y 10 caracteres.")
-                    Toast.makeText(context, "La clave debe tener entre 4 y 10 caracteres.", Toast.LENGTH_SHORT).show()
+                } else if (pass.length !in 6..8) {
+                    println("La clave debe tener entre 6 y 8 caracteres.")
+                    Toast.makeText(context, "La clave debe tener entre 6 y 8 caracteres.", Toast.LENGTH_SHORT).show()
                 } else {
                     navController.navigate("Login")
                     println("Usuario registrado")

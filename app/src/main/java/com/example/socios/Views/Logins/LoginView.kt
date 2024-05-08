@@ -132,9 +132,7 @@ fun ContentLoginView(navController: NavController) {
                     println("MSV: USUARIO CORRECTO NAVEGAMO")
                     }
                 else{
-                    println("MSV: CREDENCIALES INVALIDAS (arreglar esto pq si entra a la api)")
-                    //Toast.makeText(context,"Credenciales invalidas",
-                        //Toast.LENGTH_LONG).show()
+                    println("MSV: CREDENCIALES INVALIDAS")
                 }
             }
 
@@ -235,8 +233,7 @@ fun ContentLoginView(navController: NavController) {
                 } else if (!validarCorreoElectronico(mail)) {
                     println("Correo electrónico inválido")
                     Toast.makeText(context, "Correo electrónico inválido", Toast.LENGTH_SHORT).show()
-                }
-                else if (pass.length !in 4..8) {
+                } else if (pass.length !in 4..8) {
                     println("Clave incompleta (largo)")
                     Toast.makeText(context, "Clave incompleta (largo)", Toast.LENGTH_SHORT).show()
                 }

@@ -39,9 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.socios.Components.MainButton
 import com.example.socios.Components.maxWidthIn
+import com.example.socios.Components.validarCorreoElectronico
 import com.example.socios.R
+
 @Composable
 fun ForgotView(navController: NavController) {
     ContentForgotView(navController)
@@ -49,10 +50,10 @@ fun ForgotView(navController: NavController) {
 
 @Composable
 fun ContentForgotView(navController: NavController) {
-    var rut by remember {
+    var mail by remember {
         mutableStateOf("")
     }
-    var clave by remember {
+    var pass by remember {
         mutableStateOf("")
     }
     val context = LocalContext.current
@@ -84,12 +85,12 @@ fun ContentForgotView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = rut,
+            value = mail,
             onValueChange = {
-                rut = it
+                mail = it
             },
             label = {
-                Text(text = "Ingresa tu RUT, sin guión.")
+                Text(text = "Ingresa tu mail.")
             },
             singleLine = true,
             maxLines = 1,
@@ -101,17 +102,20 @@ fun ContentForgotView(navController: NavController) {
 
         Button(
             onClick = {
-                println("Rut: $rut")
-                if (rut.isNullOrEmpty()) {
-                    println("Ingrese un rut, por favor")
-                    Toast.makeText(context, "Ingrese un rut, por favor", Toast.LENGTH_SHORT).show()
-                } else if (rut.length < 8 || rut.length > 9 || !rut.all { it.isDigit() }) {
-                    println("Ingrese un rut válido")
-                    Toast.makeText(context, "Ingrese un rut válido", Toast.LENGTH_SHORT).show()
+                println("Rut: $mail")
+                if (mail.isNullOrEmpty()) {
+                    println("Ingrese un mail, por favor.")
+                    Toast.makeText(context, "Ingrese un mail, por favor.", Toast.LENGTH_SHORT).show()
+                } else if (!mail.contains("@")) {
+                    println("Correo electrónico inválido: Falta el caracter '@'")
+                    Toast.makeText(context, "Correo electrónico inválido: Falta el caracter '@'", Toast.LENGTH_LONG).show()
+                } else if (!validarCorreoElectronico(mail)) {
+                    println("Correo electrónico inválido")
+                    Toast.makeText(context, "Correo electrónico inválido", Toast.LENGTH_SHORT).show()
                 } else {
-                    println("Se ha enviado un correo electrónico con las instrucciones")
-                    Toast.makeText(context, "Se ha enviado un correo electrónico con las instrucciones", Toast.LENGTH_LONG).show()
                     navController.navigate("Login")
+                    println("Se ha enviado un correo electrónico para recuperar la clave.")
+                    Toast.makeText(context, "Se ha enviado un correo electrónico para recuperar la clave.", Toast.LENGTH_LONG).show()
                 }
             },
             modifier = Modifier.height(50.dp).maxWidthIn(130.dp),
