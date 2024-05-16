@@ -53,9 +53,6 @@ fun ContentForgotView(navController: NavController) {
     var mail by remember {
         mutableStateOf("")
     }
-    var pass by remember {
-        mutableStateOf("")
-    }
     val context = LocalContext.current
     Column(
         modifier = Modifier
