@@ -1,6 +1,6 @@
 package com.example.socios.modelo
 
-data class Usuario (
+data class Usuario(
     var mail: String,
     var pass: String,
     var nombre: String,

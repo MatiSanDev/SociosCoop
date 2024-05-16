@@ -1,6 +1,5 @@
 package com.example.socios.Screens
 
-import android.widget.SearchView
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
@@ -17,8 +16,8 @@ import com.example.socios.Views.Resources.ConfigurationView
 import com.example.socios.Views.Resources.ContactView
 import com.example.socios.Views.Resources.DirectionsView
 import com.example.socios.Views.Resources.NotificationsView
-import com.example.socios.Views.Resources.SplashView
 import com.example.socios.Views.Resources.SearchView
+import com.example.socios.Views.Resources.SplashView
 
 
 @Composable
